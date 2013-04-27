@@ -16,11 +16,11 @@ define([], function() {
     };
 
     Element.prototype.percentX = function(x) {
-        return this._scene.width * x;
+        return this._scene.frameWidth * x;
     };
 
     Element.prototype.percentY = function(y) {
-        return this._scene.height * y;
+        return this._scene.frameHeight * y;
     };
 
     Element.prototype.positionPercent = function(x, y) {
@@ -28,8 +28,8 @@ define([], function() {
             scene = this._scene;
 
         if (sprite && scene) {
-            var px = x * scene.width;
-            var py = y * scene.height;
+            var px = x * scene.frameWidth;
+            var py = y * scene.frameHeight;
             sprite.attr(this._xPosAttr, px);
             sprite.attr(this._yPosAttr, py);
         }
