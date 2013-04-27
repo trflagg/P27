@@ -6,7 +6,7 @@ requirejs.config({
     }
 });
 
-require(["jquery", 'Scene', 'P'], function($, Scene, P) {
+require(["jquery", 'Scene', 'P', 'Text'], function($, Scene, P, Text) {
     $(function() {
 
         var paper = Raphael(0,0,$(window).width(), $(window).height());
@@ -24,5 +24,6 @@ require(["jquery", 'Scene', 'P'], function($, Scene, P) {
         scene.P(p);
         p.positionPercent(.6667, .6667);
 
+        var t = new Text('Hello World', paper);
     });
 });
