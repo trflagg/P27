@@ -70,6 +70,7 @@ define(['P', 'Text'],function(P, Text) {
     Scene.prototype.buttonUp = function(event) {
         console.log("Button Up.");                
         this._buttonRect.attr({'stroke-width': '0'});
+        this.P().turn90CW();
 
     }
 

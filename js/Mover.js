@@ -40,8 +40,20 @@ define(['lib/underscore'], function() {
         },
 
         turn45CCW: function() {
-
             this._angle -= 45;
+            this.setAnimationByAngle();
+        },
+        turn45CW: function() {
+            this._angle += 45;
+            this.setAnimationByAngle();
+        },
+
+        turn90CCW: function() {
+            this._angle -= 90;
+            this.setAnimationByAngle();
+        },
+        turn90CW: function() {
+            this._angle += 90;
             this.setAnimationByAngle();
         },
 

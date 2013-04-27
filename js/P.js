@@ -26,7 +26,7 @@ define(['Element', 'Mover'], function(Element, Mover) {
 
     P.prototype.update = function() {
         if (this._moving) {
-
+            
         }
     }
 
