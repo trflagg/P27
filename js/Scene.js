@@ -7,22 +7,27 @@ define([],function() {
     /**
      * Scene constructor.
      */
-    var Scene = function() {
+    var Scene = function(paper) {
+        this.width = null;
+        this.height = null;
+        
         this._P = null;
         this._elements = [];
+        this._paper = paper;
     };
 
-    /**
-     * Gets or sets the P.
-     * @param {P} Scene's P is set to p if provided.
-     * @return {P} Scene's P.
-     */ 
     Scene.prototype.P = function(p) {
         if (p) {
             this._P = p;
+            p.setScene(this);
         }
 
         return this._P;
+    }
+
+    Scene.prototype.resize = function(width, height) {
+        this.width = width;
+        this.height = height;
     }
 
     return Scene;
