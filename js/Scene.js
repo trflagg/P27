@@ -14,6 +14,8 @@ define(['P', 'Text'],function(P, Text) {
         this._P = null;
         this._elements = [];
 
+        this._buttonDown = false;
+
         this.windowSize(windowWidth, windowHeight);
         var paper = Raphael("frame", this.frameWidth, this.frameHeight);
         this._paper = paper;
@@ -58,17 +60,21 @@ define(['P', 'Text'],function(P, Text) {
 
     Scene.prototype.buttonDown = function(event) {
         console.log("Button Down.");
-        this._buttonRect.attr({'stroke-width': '20'});
-        if (!this.P().moving()) {
-            this.P().moveRight();
-        }
-        else {
-            this.P().turn45CCW();
+        if (!this._buttonDown) {
+            this._buttonDown = true;
+            this._buttonRect.attr({'stroke-width': '20'});
+            if (!this.P().moving()) {
+                this.P().moveRight();
+            }
+            else {
+                this.P().turn45CCW();
+            }
         }
     }
 
     Scene.prototype.buttonUp = function(event) {
-        console.log("Button Up.");                
+        console.log("Button Up.");  
+        this._buttonDown = false;              
         this._buttonRect.attr({'stroke-width': '0'});
         this.P().turn90CW();
 
