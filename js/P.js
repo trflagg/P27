@@ -2,7 +2,7 @@
  * P.js
  * P is the player Point.
  */
-define(['Element'], function(Element) {
+define(['Element', 'Mover'], function(Element, Mover) {
 
     /**
      * P Constructor
@@ -18,56 +18,11 @@ define(['Element'], function(Element) {
         this._xPosAttr = 'cx';
         this._yPosAttr = 'cy';
 
-        this._moving = false;
-        this._movementType = null;
-        this._angle = null;
-        this._dx = 0;
-        this._dy = 0;
+        this.initializeMover();
     }
     // inherit from parent
     P.prototype = Object.create(Element.prototype);
-
-    // MOVEMENT
-    P.prototype.startMoving = function() {
-        this._moving = true;
-        return this;
-    }
-    P.prototype.stopMoving = function() {
-        this._moving = false;
-        return this;
-    }
-    P.prototype.moving = function() {
-        return this._moving;
-    }
-
-    P.prototype.movementType = function(movementType) {
-        if (movementType) {
-            this._movementType = movementType;
-            return this;
-        }
-        return this._movementType;
-    }
-
-    P.prototype.moveRight = function() {
-        this._angle = 0;
-        this._moving = true;
-        this.sprite.animate({'cx': this.sprite.attr('cx') + this._scene.frameWidth}, 10000);
-
-        return this;
-    }
-
-    P.prototype.turn45CCW = function() {
-        this._angle -= 45;
-        // cos() = adj/hyp
-        // adj = cos() * hyp
-        var dx = Math.cos(Raphael.rad(this._angle)) * this._scene.frameWidth;
-
-        // sin() = opp/hyp
-        // opp = sin() * hyp
-        var dy = Math.sin(Raphael.rad(this._angle)) * this._scene.frameWidth;
-
-        this.sprite.stop().animate({'cx': this.sprite.attr('cx') + dx, 'cy': this.sprite.attr('cy') + dy}, 10000);
-    }
+    P.prototype = _.extend(Mover, P.prototype);
 
     P.prototype.update = function() {
         if (this._moving) {
