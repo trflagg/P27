@@ -22,7 +22,7 @@ require(["jquery", 'Scene', 'P'], function($, Scene, P) {
 
         var p = new P(paper);
         scene.P(p);
-
+        p.positionPercent(.6667, .6667);
 
     });
 });
