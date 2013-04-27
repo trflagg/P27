@@ -40,11 +40,16 @@ define(['lib/underscore'], function() {
         },
 
         turn45CCW: function() {
-            var xPos = this._xPosAttr,
-                yPos = this._yPosAttr;
-            var animation = {};
 
             this._angle -= 45;
+            this.setAnimationByAngle();
+        },
+
+        setAnimationByAngle: function() {
+            var xPos = this._xPosAttr,
+                yPos = this._yPosAttr,
+                animation = {};
+
             // cos() = adj/hyp
             // adj = cos() * hyp
             var dx = Math.cos(Raphael.rad(this._angle)) * this._scene.frameWidth;
