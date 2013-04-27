@@ -36,6 +36,12 @@ define(['P', 'Text'],function(P, Text) {
         t.positionPercent(.13, .7);
     };
 
+    Scene.prototype.update = function() {
+        if (this._P) {
+            this._P.update();
+        }
+    }
+
     Scene.prototype.P = function(p) {
         if (p) {
             this._P = p;
@@ -53,6 +59,7 @@ define(['P', 'Text'],function(P, Text) {
     Scene.prototype.buttonDown = function(event) {
         console.log("Button Down.");
         this._buttonRect.attr({'stroke-width': '20'});
+        this.P().moveRight().startMoving();
     }
 
     Scene.prototype.buttonUp = function(event) {
