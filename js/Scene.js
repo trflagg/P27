@@ -59,7 +59,12 @@ define(['P', 'Text'],function(P, Text) {
     Scene.prototype.buttonDown = function(event) {
         console.log("Button Down.");
         this._buttonRect.attr({'stroke-width': '20'});
-        this.P().moveRight().startMoving();
+        if (!this.P().moving()) {
+            this.P().moveRight();
+        }
+        else {
+            this.P().turn45CCW();
+        }
     }
 
     Scene.prototype.buttonUp = function(event) {

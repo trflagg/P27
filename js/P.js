@@ -50,15 +50,28 @@ define(['Element'], function(Element) {
 
     P.prototype.moveRight = function() {
         this._angle = 0;
-        this._moving;
+        this._moving = true;
         this.sprite.animate({'cx': this.sprite.attr('cx') + this._scene.frameWidth}, 10000);
 
         return this;
     }
 
+    P.prototype.turn45CCW = function() {
+        this._angle -= 45;
+        // cos() = adj/hyp
+        // adj = cos() * hyp
+        var dx = Math.cos(Raphael.rad(this._angle)) * this._scene.frameWidth;
+
+        // sin() = opp/hyp
+        // opp = sin() * hyp
+        var dy = Math.sin(Raphael.rad(this._angle)) * this._scene.frameWidth;
+
+        this.sprite.stop().animate({'cx': this.sprite.attr('cx') + dx, 'cy': this.sprite.attr('cy') + dy}, 10000);
+    }
+
     P.prototype.update = function() {
         if (this._moving) {
-            
+
         }
     }
 
