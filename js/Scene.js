@@ -10,7 +10,7 @@ define([],function() {
     var Scene = function(paper) {
         this.width = null;
         this.height = null;
-        
+
         this._P = null;
         this._elements = [];
         this._paper = paper;
@@ -23,6 +23,11 @@ define([],function() {
         }
 
         return this._P;
+    }
+
+    Scene.prototype.add = function(element) {
+        this._elements.push(element);
+        element.setScene(this);
     }
 
     Scene.prototype.resize = function(width, height) {

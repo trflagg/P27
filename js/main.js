@@ -24,6 +24,8 @@ require(["jquery", 'Scene', 'P', 'Text'], function($, Scene, P, Text) {
         scene.P(p);
         p.positionPercent(.6667, .6667);
 
-        var t = new Text('Hello World', paper);
+        var t = new Text('P27', paper);
+        scene.add(t);
+        t.positionPercent(.6, .6);
     });
 });
