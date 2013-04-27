@@ -21,8 +21,11 @@ define(['P', 'Text'],function(P, Text) {
         // background rect
         paper.rect(0,0,this.frameWidth, this.frameHeight).attr({'fill':'#fff',});
 
-        // demo scene
+        // button rect
+        var buttonRect = paper.rect(0,0,this.frameWidth, this.frameHeight).attr({'stroke': '#000', 'stroke-width': '0'});
+        this._buttonRect = buttonRect;
 
+        // demo scene
         var p = new P(paper);
         this.P(p);
         p.positionRelative(200, 516);
@@ -45,6 +48,17 @@ define(['P', 'Text'],function(P, Text) {
     Scene.prototype.add = function(element) {
         this._elements.push(element);
         element.setScene(this);
+    }
+
+    Scene.prototype.buttonDown = function(event) {
+        console.log("Button Down.");
+        this._buttonRect.attr({'stroke-width': '20'});
+    }
+
+    Scene.prototype.buttonUp = function(event) {
+        console.log("Button Up.");                
+        this._buttonRect.attr({'stroke-width': '0'});
+
     }
 
     Scene.prototype.windowSize = function(width, height) {
