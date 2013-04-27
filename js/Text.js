@@ -13,10 +13,10 @@ define(['Element'], function(Element) {
         // call parent constructor
         Element.call(this, paper);
 
-        this._sprite = paper.text(100,100,text);
-        this._sprite.attr({'font-family': 'Lato'});
-        this._sprite.attr({'font-size': '72'});
-        this._sprite.attr({'font-weight': '100'});
+        this.sprite = paper.text(-1000,-1000,text);
+        this.sprite.attr({'font-family': 'Lato'});
+        this.sprite.attr({'font-size': '72'});
+        this.sprite.attr({'font-weight': '100'});
 
     };
     // inherit from parent

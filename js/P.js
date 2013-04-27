@@ -12,8 +12,8 @@ define(['Element'], function(Element) {
         // call parent constructor
         Element.call(this, paper);
 
-        this._sprite = paper.circle(100,100,10);
-        this._sprite.attr("fill", "#000");
+        this.sprite = paper.circle(100,100,1);
+        this.sprite.attr("fill", "#000");
 
         this._xPosAttr = 'cx';
         this._yPosAttr = 'cy';

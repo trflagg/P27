@@ -25,11 +25,12 @@ define(['P', 'Text'],function(P, Text) {
 
         var p = new P(paper);
         this.P(p);
-        p.positionPercent(.6667, .6667);
+        p.positionRelative(200, 516);
 
         var t = new Text('P27', paper);
         this.add(t);
-        t.positionPercent(.6, .6);
+        t.sprite.attr('font-size', this.relativeSize(72));
+        t.positionPercent(.13, .7);
     };
 
     Scene.prototype.P = function(p) {
@@ -60,7 +61,12 @@ define(['P', 'Text'],function(P, Text) {
             this.height = height;
             this.frameWidth = frameWidth;
             this.frameHeight = frameHeight;
+            this._relativeFactor = frameHeight / 705;
         }
+    }
+
+    Scene.prototype.relativeSize = function(num) {
+        return num * this._relativeFactor;
     }
 
     return Scene;
