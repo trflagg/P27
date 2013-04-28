@@ -15,7 +15,8 @@ define(['Pickup'], function(Pickup) {
     // inherit from parent
     Goal.prototype = Object.create(Pickup.prototype);
 
-    Goal.prototype.pickup = function() {
+    Goal.prototype.pickup = function(p) {
+        this.scene.goalPickedUp();
         return true;
     }
 

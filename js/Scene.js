@@ -28,18 +28,23 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
         p.positionRelative(200, 516);
 
         // load first level
+        this.currentLevel = 0;
         this.loadLevel(Levels[0]);
 
         this.start = true;
+        this.playing = false;
     };
 
     Scene.prototype.loadLevel = function(level) {
+        console.log('load level ');
 
         if (!level.elements) {
             return;
         }
 
         var elements = level.elements;
+
+        this.goalsRemaining = 0;
 
         for(var i=0, ll = level.elements.length; i<ll; i++) {
             var element = elements[i];
@@ -53,6 +58,13 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
                 case 'sizeMod':
                     var newElement = new SizeMod(this, this._paper)
                     newElement.setModSize(element.modSize);
+                    break;
+
+                case 'goalsRemaining':
+                    this.goalsRemaining++;
+                    var newElement = new Goal(this._paper)
+                    if (element.size) 
+                        newElement.size(element.size);
                     break;
             }
 
@@ -90,37 +102,95 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
     };
 
     Scene.prototype.update = function() {
-        var p = this._P;
+        if (this.playing) {
+            var p = this._P;
 
-        if (p) {
-            p.update();
-        }
+            if (p) {
+                p.update();
+            }
 
-        // collision check
-        var collidables = this._collidables;  
-        var removalList = [];     
+            // collision check
+            var collidables = this._collidables;  
+            var removalList = [];     
 
-        var pbbox = p.sprite.getBBox();
+            var pbbox = p.sprite.getBBox();
 
-        for(var i=0, ll=collidables.length; i<ll; i++) {
-            var collider = collidables[i];
+            for(var i=0, ll=collidables.length; i<ll; i++) {
+                var collider = collidables[i];
 
-            var bbox = collider.sprite.getBBox();
-            if (Raphael.isBBoxIntersect(bbox,pbbox)) {
-                // collision!
-                if(collider.pickup(p)) {
-                    removalList.push(collider);
-                }           
+                var bbox = collider.sprite.getBBox();
+                if (Raphael.isBBoxIntersect(bbox,pbbox)) {
+                    // collision!
+                    if(collider.pickup(p)) {
+                        removalList.push(collider);
+                    }           
+                }
+            }
+
+            // remove removalList
+            for(var i=0, ll=removalList.length; i<ll; i++) {
+                var item = removalList[i];
+                collidables.splice(collidables.indexOf(item), 1);
+                this._elements.splice(this._elements.indexOf(item), 1);
+                item.sprite.remove();
+            }
+
+            // check for p out of bounds
+            var x = p.x(),
+                y = p.y(),
+                r = p.r();
+            if ( ((x + r) < -5) ||
+                 ((x - r) > this.frameWidth + 5) ||
+                 ((y + r) < -5) ||
+                 ((y - r) > this.frameHeight + 5))
+            {
+                // did we get all of the goals?
+                if (this.goalsRemaining <= 0) {
+                    this.endLevel();
+                }
+                else {
+                    this.restartLevel();
+                }
             }
         }
+    };
 
-        // remove removalList
-        for(var i=0, ll=removalList.length; i<ll; i++) {
-            var item = removalList[i];
-            collidables.splice(collidables.indexOf(item), 1);
-            this._elements.splice(this._elements.indexOf(item), 1);
-            item.sprite.remove();
+    Scene.prototype.restartLevel = function() {
+        console.log('restart level');
+        this.removeElements();
+        this.loadLevel(Levels[this.currentLevel]);
+    };
+
+    Scene.prototype.endLevel = function() {
+        console.log('end level');
+        this.removeElements();
+        this.currentLevel++;
+        if (this.currentLevel >= Levels.length) {
+            // game over
+            this.endGame();
+            return;
         }
+
+        this.loadLevel(Levels[this.currentLevel]);
+    };
+
+    Scene.prototype.endGame = function() {
+        alert('Thanks for playing!');
+        this.playing = false;
+    };
+
+    Scene.prototype.removeElements = function() {
+        this._collidables.length = 0;
+        for (var i=0, ll=this._elements.length; i<ll; i++) {
+            if (this._elements[i].sprite) {
+                this._elements[i].sprite.remove();
+            }
+        }
+        this._elements.length = 0;
+    };
+
+    Scene.prototype.goalPickedUp = function() {
+        this.goalsRemaining--;
     };
 
     Scene.prototype.P = function(p) {
@@ -154,6 +224,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
 
         if (this.start) {
             this.start = false;
+            this.playing = true;
             this.P().moveRight().startMoving();
         }
     }
