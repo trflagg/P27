@@ -215,17 +215,25 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
     };
 
     Scene.prototype.buttonDown = function(event) {
-        this._buttonRect.attr({'stroke-width': '20'});
-        console.log("Button Down.");
-        
-        if (!this._buttonDown) {
-            this._buttonDown = true;
-        }
+        if (!event.metaKey) {
+            this._buttonRect.attr({'stroke-width': '20'});
+            console.log("Button Down.");
+            
+            if (!this._buttonDown) {
+                this._buttonDown = true;
+            }
 
-        if (this.start) {
-            this.start = false;
-            this.playing = true;
-            this.P().moveRight().startMoving();
+            if (this.start) {
+                this.start = false;
+                this.playing = true;
+                this.P().moveRight().startMoving();
+            }
+        }
+        else {
+            // Cmd-r: reload page
+            if (even.keyCode == 82) {
+                window.location.reload(false); 
+            }
         }
     }
 
