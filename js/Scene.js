@@ -49,8 +49,10 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
         // load first level
         this.currentLevel = 0;
 
-        // debug ability!
-        // this.currentLevel = 2;
+        /**
+         * DEBUG ABILITY!!!!
+         */
+        this.currentLevel = 3;
         
         this.loadLevel(Levels[this.currentLevel]);
 
@@ -102,6 +104,14 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
                 attrObject[attribute.attr] = value;
                 this._P.sprite.attr(attrObject);
            }
+        }
+
+        if (level.p.buttonDown) {
+            this._P.bindButtonDown(level.p.buttonDown);
+        }
+
+        if (level.p.buttonUp) {
+            this._P.bindButtonUp(level.p.buttonUp);
         }
 
         var x = this._P.x();

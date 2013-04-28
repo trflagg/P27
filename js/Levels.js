@@ -164,7 +164,8 @@ define(['ButtonMods'], function(ButtonMods) {
                     value: 5,
                     relative: true,
                 }
-            ]
+            ],
+            buttonDown: ButtonMods.CCW90
         },
         sound: {
             sound: 'bassMovement',
@@ -174,7 +175,7 @@ define(['ButtonMods'], function(ButtonMods) {
                 type: 'goal',
                 positionRelative: {
                     x: 220,
-                    y: 216,
+                    y: 600,
                 },
                 size: 4,
                 onPickup: function(scene) {
@@ -185,8 +186,8 @@ define(['ButtonMods'], function(ButtonMods) {
             {
                 type: 'goal',
                 positionRelative: {
-                    x: 220,
-                    y: 420,
+                    x: 1024,
+                    y: 600,
                 },
                 size: 4,
                 onPickup: function(scene) {
@@ -196,6 +197,28 @@ define(['ButtonMods'], function(ButtonMods) {
             },
 
         ]
+    },
+
+    /**
+     * Level 4
+     */
+    {
+        p: {
+            positionRelative: {
+                x: 0,
+                y: 600,
+            },
+            angle: 0,
+            attrs: [
+                {
+                    attr: 'r',
+                    value: 5,
+                    relative: true,
+                }
+            ],
+            buttonDown: ButtonMods.CCW90,
+
+        },
     }
     ]
 });

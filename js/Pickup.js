@@ -22,8 +22,9 @@ define(['Element'], function(Element) {
     }
 
     Pickup.prototype.die = function() {
+        var pickup = this;
         this.sprite.animate({'transform': '...S2.5', 'opacity': 0}, 300, function() {
-            this.sprite.remove();
+            pickup.sprite.remove();
         })
     }
 

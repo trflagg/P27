@@ -81,6 +81,7 @@ define(['lib/underscore'], function() {
                 this._linePath = this._paper.path(this._linePathString);
             }
             this._linePath.attr({'stroke-width': this.sprite.attr('r'), 'stroke': '#000'});
+            // this._linePath.attr('fill','rgb(255,255,102)');
             
 
             this._currentAnimation = Raphael.animation(animation, 20000);
