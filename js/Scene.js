@@ -43,7 +43,7 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
             var g = new Goal(paper);
             this.add(g, true);
             g.positionPercent(Math.random(), Math.random());
-            g.size(Math.floor(Math.random()*5)+1);
+            g.size(this.relativeSize(Math.floor(Math.random()*8)+3));
 
         }
     };
