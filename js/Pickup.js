@@ -15,7 +15,7 @@ define(['Element'], function(Element) {
     // inherit from parent
     Pickup.prototype = Object.create(Element.prototype);
 
-    Pickup.prototype.pickup = function() {
+    Pickup.prototype.pickup = function(p) {
         return false;
     }
 

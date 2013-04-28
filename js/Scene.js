@@ -2,7 +2,7 @@
  * Scene.js
  * Holds the player P and an array of elements for checking collisiion.
  */
-define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
+define(['P', 'Text', 'Goal', 'SizeMod'],function(P, Text, Goal, SizeMod) {
 
     /**
      * Scene constructor.
@@ -46,6 +46,11 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
             g.size(this.relativeSize(Math.floor(Math.random()*8)+3));
 
         }
+
+        var sm = new SizeMod(this, paper);
+        this.add(sm, true);
+        sm.setSize(10);
+        sm.positionPercent(.5, .5);
     };
 
     Scene.prototype.update = function() {
