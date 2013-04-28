@@ -65,12 +65,13 @@ define(['P',
         /**
          * DEBUG ABILITY!!!!
          */
-        this.currentLevel = 4;
+        // this.currentLevel = 6;
         
         this.loadLevel(Levels[this.currentLevel]);
 
         this.start = true;
         this.playing = false;
+        this.ignoreButtonUp = false;
     };
 
     Scene.prototype.loadLevel = function(level) {
@@ -361,6 +362,7 @@ define(['P',
             if (this.start) {
                 this.start = false;
                 this.playing = true;
+                this.ignoreButtonUp = true;
                 this._angle = 0;
                 this._P.setAnimationByAngle();
             }
@@ -376,6 +378,11 @@ define(['P',
     Scene.prototype.buttonUp = function(event) {
         this._buttonRect.attr({'stroke-width': '0'});
         console.log("Button Up.");  
+
+        if (this.ignoreButtonUp) {
+            this.ignoreButtonUp = false;
+            return;
+        }
 
         if (this.playing) {
             this._P.buttonUp();

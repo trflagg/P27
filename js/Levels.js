@@ -279,6 +279,74 @@ define(['ButtonMods'], function(ButtonMods) {
                 count: 5
             }
         ]
-    }
+    },
+
+    /**
+     * Level 6
+     */
+    {
+        p: {
+            positionRelative: {
+                x: 0,
+                y: 516,
+            },
+            angle: 0,
+            attrs: [
+                {
+                    attr: 'r',
+                    value: 5,
+                    relative: true,
+                }
+            ],
+            buttonDown: ButtonMods.CCW90,
+            buttonUp: ButtonMods.CCW90,
+        },
+        sound: {
+            sound: 'bass',
+        },
+        elements: [
+            {
+                type: 'cw90Mod',
+                positionRelative: {
+                    x: 115,
+                    y: 516
+                },
+                buttonType: ButtonMods.BUTTON_UP,
+
+            },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 210,
+                    y: 460,
+                },
+                size: 4,
+            },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 910,
+                    y: 75,
+                },
+                size: 4,
+            },
+            {
+                type: 'cw90Mod',
+                positionRelative: {
+                    x: 1000,
+                    y: 75,
+                },
+                buttonType: ButtonMods.BUTTON_DOWN,
+            },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 974,
+                    y: 646,
+                },
+                size: 4,
+            },
+        ]
+    },
     ]
 });
