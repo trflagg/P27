@@ -44,6 +44,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
         var elements = level.elements;
 
         this.goalsRemaining = 0;
+        this._P.sprite.stop();
 
         // position p
         // TODO: This is a copy from for loop below
@@ -57,6 +58,14 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
             this._P.positionRelative(level.p.positionRelative.x, level.p.positionRelative.y);
         }
 
+        this._P.angle = 0;
+        if (level.p.angle) {
+            this._P.angle = level.p.angle;
+        }
+        if (this.playing) {
+            this._P.setAnimationByAngle();
+        }
+        
         // loop through attrs
         if (level.p.attrs) {
             for(var j=0, ll2 = level.p.attrs.length; j<ll2; j++) {
@@ -71,6 +80,9 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
            }
        }
 
+       var x = this._P.x();
+       var y = this._P.y();
+
 
         // position elemenst
         for(var i=0, ll = level.elements.length; i<ll; i++) {
@@ -84,7 +96,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
 
                 case 'sizeMod':
                     var newElement = new SizeMod(this, this._paper)
-                    newElement.setModSize(element.modSize);
+                    newElement.setModSize(this.relativeSize(element.modSize));
                     break;
 
                 case 'goal':

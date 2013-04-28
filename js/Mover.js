@@ -64,17 +64,17 @@ define(['lib/underscore'], function() {
 
             // cos() = adj/hyp
             // adj = cos() * hyp
-            var dx = Math.cos(Raphael.rad(this._angle)) * this._scene.frameWidth;
+            var dx = Math.cos(Raphael.rad(this._angle)) * (this._scene.frameWidth * 2);
 
             // sin() = opp/hyp
             // opp = sin() * hyp
-            var dy = Math.sin(Raphael.rad(this._angle)) * this._scene.frameWidth;
+            var dy = Math.sin(Raphael.rad(this._angle)) * (this._scene.frameWidth * 2);
 
             animation[xPos] = this.sprite.attr(xPos) + dx;
             animation[yPos] = this.sprite.attr(yPos) + dy;
 
             //TODO: Only stop the last moving animation, not all of them!
-            this.sprite.stop().animate(animation, 10000);
+            this.sprite.stop().animate(animation, 20000);
         }
     }
 })

@@ -14,6 +14,12 @@ require(["jquery", 'Scene'], function($, Scene) {
         $(document).on('mousedown keydown', function(event) {scene.buttonDown.call(scene,event); return false;});
         $(document).on('mouseup keyup', function(event) {scene.buttonUp.call(scene,event)});
 
+        $('#frame').on('mousemove', function(e) {
+            posx = e.pageX - $(document).scrollLeft() - $('#frame').offset().left;
+            posy = e.pageY - $(document).scrollTop() - $('#frame').offset().top;
+            console.log('('+scene.relativeSize(posx)+','+scene.relativeSize(posy)+')');
+        });
+
         window.setInterval(function() {
             scene.update();
         }, 20);
