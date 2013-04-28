@@ -1,5 +1,5 @@
 
-define(['Element', 'Mover'], function(Element, Mover) {
+define(['Element', 'Mover', 'ButtonMods'], function(Element, Mover, ButtonMods) {
 
     var P = function(paper) {
         // call parent constructor
@@ -10,6 +10,11 @@ define(['Element', 'Mover'], function(Element, Mover) {
 
         this._xPosAttr = 'cx';
         this._yPosAttr = 'cy';
+
+        this._buttonDown = ButtonMods.NONE;
+        this._buttonUp = ButtonMods.NONE;
+        this._oldButtonDown = ButtonMods.NONE;
+        this._oldButtonUp = ButtonMods.NONE;
 
         this.initializeMover();
     };
@@ -30,6 +35,40 @@ define(['Element', 'Mover'], function(Element, Mover) {
             
         }
     };
+
+    P.prototype.bindButtonDown = function(modName) {
+        this._buttonDown = modName;
+    };
+    P.prototype.bindButtonUp = function(modName) {
+        this._buttonUp = modName;
+    };
+
+    P.prototype.buttonDown = function() {
+        this.runButtonMod(this._buttonDown);
+    };
+    P.prototype.buttonUp = function() {
+        this.runButtonMod(this._buttonUp);
+    };
+
+    P.prototype.runButtonMod = function(buttonMod) {
+        switch (buttonMod) {
+            case ButtonMods.CCW90:
+                this.turn90CCW();
+                break;
+        }
+    }
+
+    P.prototype.newLevel = function() {
+        this._oldButtonDown = this._buttonDown;
+        this._oldButtonUp = this._buttonUp;
+    }
+
+    P.prototype.levelReset = function() {
+        this._buttonUp = this._oldButtonUp;
+        this._buttonDown = this._oldButtonDown;
+
+    }
+
 
 
     return P;

@@ -1,5 +1,5 @@
 
-define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMod, Levels) {
+define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, Goal, SizeMod, Levels, CCW90Mod) {
 
     var Scene = function(windowWidth, windowHeight) {
         this.windowWidth = null;
@@ -28,7 +28,12 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
 
         // load first level
         this.currentLevel = 0;
-        this.loadLevel(Levels[0]);
+
+
+        // debug ability!
+        // this.currentLevel = 1;
+        
+        this.loadLevel(Levels[this.currentLevel]);
 
         this.start = true;
         this.playing = false;
@@ -58,14 +63,14 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
             this._P.positionRelative(level.p.positionRelative.x, level.p.positionRelative.y);
         }
 
-        this._P.angle = 0;
+        this._P._angle = 0;
         if (level.p.angle) {
-            this._P.angle = level.p.angle;
+            this._P._angle = level.p.angle;
         }
         if (this.playing) {
             this._P.setAnimationByAngle();
         }
-        
+
         // loop through attrs
         if (level.p.attrs) {
             for(var j=0, ll2 = level.p.attrs.length; j<ll2; j++) {
@@ -91,12 +96,16 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
 
             switch(element.type) {
                 case 'text':
-                    var newElement = new Text(element.text, this._paper)
+                    var newElement = new Text(element.text, this._paper);
                     break;
 
                 case 'sizeMod':
-                    var newElement = new SizeMod(this, this._paper)
+                    var newElement = new SizeMod(this, this._paper);
                     newElement.setModSize(this.relativeSize(element.modSize));
+                    break;
+
+                case 'ccw90Mod':
+                    var newElement = new CCW90Mod(this, this._paper);
                     break;
 
                 case 'goal':
@@ -200,6 +209,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
     Scene.prototype.restartLevel = function() {
         console.log('restart level');
         this.removeElements();
+        this._P.levelReset();
         this.loadLevel(Levels[this.currentLevel]);
     };
 
@@ -212,6 +222,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
             this.endGame();
             return;
         }
+        this._P.newLevel();
 
         this.loadLevel(Levels[this.currentLevel]);
     };
@@ -265,6 +276,10 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
                 this._buttonDown = true;
             }
 
+            if (this.playing) {
+                this._P.buttonDown();
+            }
+
             if (this.start) {
                 this.start = false;
                 this.playing = true;
@@ -282,6 +297,10 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
     Scene.prototype.buttonUp = function(event) {
         this._buttonRect.attr({'stroke-width': '0'});
         console.log("Button Up.");  
+
+        if (this.playing) {
+            this._P.buttonUp();
+        }
 
         this._buttonDown = false;
 

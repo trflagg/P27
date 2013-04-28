@@ -16,8 +16,9 @@ require(["jquery", 'Scene'], function($, Scene) {
 
         $('#frame').on('mousemove', function(e) {
             posx = e.pageX - $(document).scrollLeft() - $('#frame').offset().left;
+            posx -= 90;
             posy = e.pageY - $(document).scrollTop() - $('#frame').offset().top;
-            console.log('('+scene.relativeSize(posx)+','+scene.relativeSize(posy)+')');
+            console.log('('+posx+','+posy+')');
         });
 
         window.setInterval(function() {
