@@ -19,16 +19,20 @@ define(['Element', 'Mover'], function(Element, Mover) {
         this._yPosAttr = 'cy';
 
         this.initializeMover();
-    }
+    };
     // inherit from parent
     P.prototype = Object.create(Element.prototype);
     P.prototype = _.extend(Mover, P.prototype);
+
+    P.prototype.resize = function() {
+        this.sprite.animate({r: this._modSize}, 500);
+    };
 
     P.prototype.update = function() {
         if (this._moving) {
             
         }
-    }
+    };
 
 
     return P;

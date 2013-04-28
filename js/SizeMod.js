@@ -29,7 +29,7 @@ define(['Mod'], function(Mod) {
     SizeMod.prototype.pickup = function(p) {
 
         //resize it
-        p.sprite.animate({r: this._modSize}, 500);
+        p.resize(this._modSize);
         return true;
     }
 
