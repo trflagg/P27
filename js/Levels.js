@@ -4,7 +4,22 @@ define(function() {
      * Level 1
      */
     {
-         elements: [
+        p: {
+            positionRelative: {
+                x: 200,
+                y: 516
+            },
+            angle: 0,
+            attrs: [
+                {
+                    attr: 'r',
+                    value: 1,
+                    relative: true,
+                }
+            ]
+        },
+
+        elements: [
             {
                 type: 'text',
                 positionPercent: {

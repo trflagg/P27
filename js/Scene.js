@@ -25,7 +25,6 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
         // load player
         var p = new P(paper);
         this.P(p);
-        p.positionRelative(200, 516);
 
         // load first level
         this.currentLevel = 0;
@@ -38,7 +37,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
     Scene.prototype.loadLevel = function(level) {
         console.log('load level ');
 
-        if (!level.elements) {
+        if (!level.elements || !level.p) {
             return;
         }
 
@@ -46,6 +45,34 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
 
         this.goalsRemaining = 0;
 
+        // position p
+        // TODO: This is a copy from for loop below
+        // throw all of this into a separate method
+        if (level.p.positionPercent) {
+            this._P.positionPercent(level.p.positionPercent.x, level.p.positionPercent.y);
+        }
+
+        // positionRelative
+        if (level.p.positionRelative) {
+            this._P.positionRelative(level.p.positionRelative.x, level.p.positionRelative.y);
+        }
+
+        // loop through attrs
+        if (level.p.attrs) {
+            for(var j=0, ll2 = level.p.attrs.length; j<ll2; j++) {
+                var attribute = level.p.attrs[j];
+                var value = attribute.value;
+                if (attribute.relative) {
+                    value = this.relativeSize(value);
+                }
+                var attrObject = {};
+                attrObject[attribute.attr] = value;
+                this._P.sprite.attr(attrObject);
+           }
+       }
+
+
+        // position elemenst
         for(var i=0, ll = level.elements.length; i<ll; i++) {
             var element = elements[i];
             var newElement = null;
@@ -231,7 +258,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
         }
         else {
             // Cmd-r: reload page
-            if (even.keyCode == 82) {
+            if (event.keyCode == 82) {
                 window.location.reload(false); 
             }
         }
@@ -264,7 +291,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
     }
 
     Scene.prototype.relativeSize = function(num) {
-        return num * this._relativeFactor;
+        return Math.max(num * this._relativeFactor, 1);
     }
 
     return Scene;
