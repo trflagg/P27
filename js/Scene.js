@@ -283,7 +283,8 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
             if (this.start) {
                 this.start = false;
                 this.playing = true;
-                this.P().moveRight().startMoving();
+                this._angle = 0;
+                this._P.setAnimationByAngle();
             }
         }
         else {

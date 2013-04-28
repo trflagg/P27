@@ -26,19 +26,6 @@ define(['lib/underscore'], function() {
             return this._movementType;
         },
 
-        moveRight: function() {
-            var xPos = this._xPosAttr,
-                yPos = this._yPosAttr;
-            var animation = {};
-
-            this._angle = 0;
-            this._moving = true;
-            animation[xPos] = this.sprite.attr(xPos) +this._scene.frameWidth;
-            this.sprite.animate(animation, 10000);
-
-            return this;
-        },
-
         turn45CCW: function() {
             this._angle -= 45;
             this.setAnimationByAngle();
