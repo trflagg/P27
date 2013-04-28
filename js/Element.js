@@ -46,7 +46,7 @@ define([], function() {
         var py = y * scene.frameHeight;
 
         if (this._requiresTranslation) {
-            sprite.transform('t'+px+','+py);
+            sprite.transform('T'+px+','+py);
             return this;
         }
 

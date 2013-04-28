@@ -38,9 +38,14 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
         t.sprite.attr('font-size', this.relativeSize(72));
         t.positionPercent(.13, .7);
 
-        var g = new Goal(paper);
-        this.add(g, true);
-        g.positionPercent(.5, .5);
+
+        for (var i=0; i<5; i++) {
+            var g = new Goal(paper);
+            this.add(g, true);
+            g.positionPercent(Math.random(), Math.random());
+            g.size(Math.floor(Math.random()*5)+1);
+
+        }
     };
 
     Scene.prototype.update = function() {
@@ -52,14 +57,13 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
         var collidables = this._collidables;  
         var removalList = [];     
 
-        var x = this._P.x();
-        var y = this._P.y();
+        var pbbox = this._P.sprite.getBBox();
 
         for(var i=0, ll=collidables.length; i<ll; i++) {
             var collider = collidables[i];
 
             var bbox = collider.sprite.getBBox();
-            if (Raphael.isPointInsideBBox(bbox,x,y)) {
+            if (Raphael.isBBoxIntersect(bbox,pbbox)) {
                 // collision!
                 if(collider.pickup(this._P)) {
                     removalList.push(collider);

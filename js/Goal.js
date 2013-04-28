@@ -26,5 +26,14 @@ define(['Pickup'], function(Pickup) {
         return true;
     }
 
+    Goal.prototype.size = function(size) {
+        if (size) {
+            this.sprite.transform('...S'+size);
+            this._size = size;
+            return this;
+        }
+        
+        return this._size;
+    }
     return Goal;
 })
