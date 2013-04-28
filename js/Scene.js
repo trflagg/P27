@@ -220,7 +220,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
                 var item = removalList[i];
                 collidables.splice(collidables.indexOf(item), 1);
                 this._elements.splice(this._elements.indexOf(item), 1);
-                item.sprite.remove();
+                item.die();
             }
 
             // check for p out of bounds
