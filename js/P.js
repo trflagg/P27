@@ -61,12 +61,22 @@ define(['Element', 'Mover', 'ButtonMods'], function(Element, Mover, ButtonMods) 
     P.prototype.newLevel = function() {
         this._oldButtonDown = this._buttonDown;
         this._oldButtonUp = this._buttonUp;
+        if (this._linePath) {
+            this._linePath.remove();
+            this._linePath = null;
+            this._linePathString = null;
+        }
     }
 
     P.prototype.levelReset = function() {
         this._buttonUp = this._oldButtonUp;
         this._buttonDown = this._oldButtonDown;
 
+        if (this._linePath) {
+            this._linePath.remove();
+            this._linePath = null;
+            this._linePathString = null;
+        }
     }
 
 
