@@ -72,6 +72,8 @@ define(['lib/underscore'], function() {
 
             animation[xPos] = this.sprite.attr(xPos) + dx;
             animation[yPos] = this.sprite.attr(yPos) + dy;
+
+            //TODO: Only stop the last moving animation, not all of them!
             this.sprite.stop().animate(animation, 10000);
         }
     }

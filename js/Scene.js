@@ -30,25 +30,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
         // load first level
         this.loadLevel(Levels[0]);
 
-        // demo scene
-        // var t = new Text('P27', paper);
-        // this.add(t);
-        // t.sprite.attr('font-size', this.relativeSize(72));
-        // t.positionPercent(.13, .7);
-
-
-        // for (var i=0; i<5; i++) {
-        //     var g = new Goal(paper);
-        //     this.add(g, true);
-        //     g.positionPercent(Math.random(), Math.random());
-        //     g.size(this.relativeSize(Math.floor(Math.random()*8)+3));
-
-        // }
-
-        // var sm = new SizeMod(this, paper);
-        // this.add(sm, true);
-        // sm.setModSize(10);
-        // sm.positionPercent(.5, .5);
+        this.start = true;
     };
 
     Scene.prototype.loadLevel = function(level) {
@@ -108,15 +90,17 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
     };
 
     Scene.prototype.update = function() {
-        if (this._P) {
-            this._P.update();
+        var p = this._P;
+
+        if (p) {
+            p.update();
         }
 
         // collision check
         var collidables = this._collidables;  
         var removalList = [];     
 
-        var pbbox = this._P.sprite.getBBox();
+        var pbbox = p.sprite.getBBox();
 
         for(var i=0, ll=collidables.length; i<ll; i++) {
             var collider = collidables[i];
@@ -124,7 +108,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
             var bbox = collider.sprite.getBBox();
             if (Raphael.isBBoxIntersect(bbox,pbbox)) {
                 // collision!
-                if(collider.pickup(this._P)) {
+                if(collider.pickup(p)) {
                     removalList.push(collider);
                 }           
             }
@@ -161,24 +145,24 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
     };
 
     Scene.prototype.buttonDown = function(event) {
+        this._buttonRect.attr({'stroke-width': '20'});
         console.log("Button Down.");
+        
         if (!this._buttonDown) {
             this._buttonDown = true;
-            this._buttonRect.attr({'stroke-width': '20'});
-            if (!this.P().moving()) {
-                this.P().moveRight();
-            }
-            else {
-                this.P().turn90CCW();
-            }
+        }
+
+        if (this.start) {
+            this.start = false;
+            this.P().moveRight().startMoving();
         }
     }
 
     Scene.prototype.buttonUp = function(event) {
-        console.log("Button Up.");  
-        this._buttonDown = false;              
         this._buttonRect.attr({'stroke-width': '0'});
-        this.P().turn90CCW();
+        console.log("Button Up.");  
+
+        this._buttonDown = false;
 
     }
 

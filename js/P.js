@@ -21,6 +21,10 @@ define(['Element', 'Mover'], function(Element, Mover) {
         this.sprite.animate({r: newSize}, 500);
     };
 
+    P.prototype.r = function() {
+        return this.sprite.attr('r');
+    }
+
     P.prototype.update = function() {
         if (this._moving) {
             
