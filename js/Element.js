@@ -10,6 +10,8 @@ define([], function() {
 
         this._xPosAttr = 'x';
         this._yPosAttr = 'y';
+
+        this.collidable = false;
     };
 
     Element.prototype.setScene = function(scene) {

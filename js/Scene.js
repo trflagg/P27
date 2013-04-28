@@ -1,5 +1,5 @@
 
-define(['P', 'Text', 'Goal', 'SizeMod'],function(P, Text, Goal, SizeMod) {
+define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMod, Levels) {
 
     var Scene = function(windowWidth, windowHeight) {
         this.windowWidth = null;
@@ -16,35 +16,95 @@ define(['P', 'Text', 'Goal', 'SizeMod'],function(P, Text, Goal, SizeMod) {
         this._paper = paper;
 
         // background rect
-        paper.rect(0,0,this.frameWidth, this.frameHeight).attr({'fill':'#fff',});
+        this.background = paper.rect(0,0,this.frameWidth, this.frameHeight).attr({'fill':'#fff',});
 
         // button rect
         var buttonRect = paper.rect(0,0,this.frameWidth, this.frameHeight).attr({'stroke': '#000', 'stroke-width': '0'});
         this._buttonRect = buttonRect;
 
-        // demo scene
+        // load player
         var p = new P(paper);
         this.P(p);
         p.positionRelative(200, 516);
 
-        var t = new Text('P27', paper);
-        this.add(t);
-        t.sprite.attr('font-size', this.relativeSize(72));
-        t.positionPercent(.13, .7);
+        // load first level
+        this.loadLevel(Levels[0]);
+
+        // demo scene
+        // var t = new Text('P27', paper);
+        // this.add(t);
+        // t.sprite.attr('font-size', this.relativeSize(72));
+        // t.positionPercent(.13, .7);
 
 
-        for (var i=0; i<5; i++) {
-            var g = new Goal(paper);
-            this.add(g, true);
-            g.positionPercent(Math.random(), Math.random());
-            g.size(this.relativeSize(Math.floor(Math.random()*8)+3));
+        // for (var i=0; i<5; i++) {
+        //     var g = new Goal(paper);
+        //     this.add(g, true);
+        //     g.positionPercent(Math.random(), Math.random());
+        //     g.size(this.relativeSize(Math.floor(Math.random()*8)+3));
 
+        // }
+
+        // var sm = new SizeMod(this, paper);
+        // this.add(sm, true);
+        // sm.setModSize(10);
+        // sm.positionPercent(.5, .5);
+    };
+
+    Scene.prototype.loadLevel = function(level) {
+
+        if (!level.elements) {
+            return;
         }
 
-        var sm = new SizeMod(this, paper);
-        this.add(sm, true);
-        sm.setModSize(10);
-        sm.positionPercent(.5, .5);
+        var elements = level.elements;
+
+        for(var i=0, ll = level.elements.length; i<ll; i++) {
+            var element = elements[i];
+            var newElement = null;
+
+            switch(element.type) {
+                case 'text':
+                    var newElement = new Text(element.text, this._paper)
+                    break;
+
+                case 'sizeMod':
+                    var newElement = new SizeMod(this, this._paper)
+                    newElement.setModSize(element.modSize);
+                    break;
+            }
+
+            if (newElement) {
+
+                this.add(newElement, newElement.collidable);
+
+                // positionPercent
+                if (element.positionPercent) {
+                    newElement.positionPercent(element.positionPercent.x, element.positionPercent.y);
+                }
+
+                // positionRelative
+                if (element.positionRelative) {
+                    newElement.positionRelative(element.positionRelative.x, element.positionRelative.y);
+                }
+
+                // loop through attrs
+                if (element.attrs) {
+                    for(var j=0, ll2 = element.attrs.length; j<ll2; j++) {
+                        var attribute = element.attrs[j];
+                        var value = attribute.value;
+                        if (attribute.relative) {
+                            value = this.relativeSize(value);
+                        }
+                        var attrObject = {};
+                        attrObject[attribute.attr] = value;
+                        newElement.sprite.attr(attrObject);
+                    }
+                }
+
+            }
+
+        }
     };
 
     Scene.prototype.update = function() {

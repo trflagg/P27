@@ -17,8 +17,8 @@ define(['Element', 'Mover'], function(Element, Mover) {
     P.prototype = Object.create(Element.prototype);
     P.prototype = _.extend(Mover, P.prototype);
 
-    P.prototype.resize = function() {
-        this.sprite.animate({r: this._modSize}, 500);
+    P.prototype.resize = function(newSize) {
+        this.sprite.animate({r: newSize}, 500);
     };
 
     P.prototype.update = function() {

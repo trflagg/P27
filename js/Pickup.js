@@ -11,6 +11,8 @@ define(['Element'], function(Element) {
     var Pickup = function(paper) {
         // call parent constructor
         Element.call(this, paper);
+
+        this.collidable = true;
     }
     // inherit from parent
     Pickup.prototype = Object.create(Element.prototype);
