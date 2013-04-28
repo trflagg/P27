@@ -31,7 +31,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
 
 
         // debug ability!
-        // this.currentLevel = 1;
+        // this.currentLevel = 2;
         
         this.loadLevel(Levels[this.currentLevel]);
 
@@ -105,7 +105,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
                     break;
 
                 case 'ccw90Mod':
-                    var newElement = new CCW90Mod(this, this._paper);
+                    var newElement = new CCW90Mod(this, this._paper, element.buttonType);
                     break;
 
                 case 'goal':

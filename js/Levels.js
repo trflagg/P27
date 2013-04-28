@@ -1,4 +1,4 @@
-define(function() {
+define(['ButtonMods'], function(ButtonMods) {
     return [
     /**
      * Level 0
@@ -39,9 +39,9 @@ define(function() {
                 type: 'goal',
                 positionRelative: {
                     x: 1000,
-                    y: 505,
+                    y: 516,
                 },
-                size: 4,
+                size: 1,
                 onPickup: function(scene) {
                     scene.P().sprite.animate({'fill': '#fff'}, 500);
                     scene.background.animate({'fill': '#000'}, 500);
@@ -75,7 +75,7 @@ define(function() {
                     x: 620,
                     y: 516,
                 },
-                modSize: 30,
+                modSize: 60,
             },
             {
                 type: 'sizeMod',
@@ -89,7 +89,7 @@ define(function() {
                 type: 'goal',
                 positionRelative: {
                     x: 800,
-                    y: 475,
+                    y: 470,
                 },
                 size: 4,
                 onPickup: function(scene) {
@@ -125,6 +125,7 @@ define(function() {
                     x: 350,
                     y: 516,
                 },
+                buttonType: ButtonMods.BUTTON_DOWN,
             },
             {
                 type: 'goal',

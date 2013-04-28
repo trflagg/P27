@@ -1,12 +1,12 @@
 
 define(['Mod', 'ButtonMods'], function(Mod, ButtonMods) {
 
-    var CCW90Mod = function(scene, paper) {
+    var CCW90Mod = function(scene, paper, buttonType) {
         // call parent constructor
         Mod.call(this, scene, paper);
 
         // reply icon
-        this.loadSprite(0xf112); 
+        this.loadSprite(0xf112, buttonType); 
     }
 
     // inherit from parent

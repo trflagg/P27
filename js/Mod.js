@@ -1,5 +1,5 @@
 
-define(['Pickup'], function(Pickup) {
+define(['Pickup', 'ButtonMods'], function(Pickup, ButtonMods) {
 
     var Mod = function(scene, paper) {
         // call parent constructor
@@ -10,15 +10,39 @@ define(['Pickup'], function(Pickup) {
     // inherit from parent
     Mod.prototype = Object.create(Pickup.prototype);
 
-    Mod.prototype.loadSprite = function(charCode) {
-        this.sprite = this._paper.text(-1000,-1000, String.fromCharCode(charCode)); // icon-fullscreen 
-        this.sprite.attr({'font-family': 'FontAwesome'});
-        this.sprite.attr({'font-size': this._scene.relativeSize(16)});
+    Mod.prototype.loadSprite = function(charCode, buttonType) {
+        this.sprite = this._paper.set()
+        var icon = this._paper.text(-1000,-1000, String.fromCharCode(charCode)); // icon-fullscreen 
+        icon.attr({'font-family': 'FontAwesome'});
+        icon.attr({'font-size': this._scene.relativeSize(16)});
+        this.sprite.push(icon);
+
+        // if (buttonType) {
+        //     if (buttonType == ButtonMods.BUTTON_DOWN) {
+        //         var typeIcon = this._paper.text(-1000,-1000, String.fromCharCode(0xf107)); // icon-angle-down 
+        //     }
+        //     if (buttonType == ButtonMods.BUTTON_UP) {
+        //         var typeIcon = this._paper.text(-1000,-100, String.fromCharCode(0xf106)); // icon-angle-up 
+        //     }
+
+        //     typeIcon.attr({'font-family': 'FontAwesome'});
+        //     typeIcon.attr({'font-size': this._scene.relativeSize(16)});
+        //     typeIcon.attr({})
+        //     this.sprite.push(typeIcon);
+        // }
+        if (buttonType) {
+            if (buttonType == ButtonMods.BUTTON_DOWN) {
+                icon.attr({'fill': '#00F'});
+            }
+            if (buttonType == ButtonMods.BUTTON_UP) {
+                icon.attr({'fill': '#F00'});
+            }
+
+        }
     }
 
     Mod.prototype.pickup = function() {
         return true;
     }
-
     return Mod;
 })
