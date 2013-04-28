@@ -1,13 +1,7 @@
-/**
- * SizeMod.js
- * Modifies P's size.
- */
+
 define(['Mod'], function(Mod) {
 
-    /**
-     * SizeMod Constructor
-     * @param {Paper} paper Raphael paper object.
-     */
+
     var SizeMod = function(scene, paper) {
         // call parent constructor
         Mod.call(this, paper);
@@ -22,7 +16,7 @@ define(['Mod'], function(Mod) {
     // inherit from parent
     SizeMod.prototype = Object.create(Mod.prototype);
 
-    SizeMod.prototype.setSize = function(s) {
+    SizeMod.prototype.setModSize = function(s) {
         this._modSize = s;
     }
 

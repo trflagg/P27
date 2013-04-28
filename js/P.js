@@ -1,13 +1,6 @@
-/**
- * P.js
- * P is the player Point.
- */
+
 define(['Element', 'Mover'], function(Element, Mover) {
 
-    /**
-     * P Constructor
-     * @param {Paper} paper Raphael paper object.
-     */
     var P = function(paper) {
         // call parent constructor
         Element.call(this, paper);

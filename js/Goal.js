@@ -1,13 +1,6 @@
-/**
- * Goal.js
- * Pickup all of these to complete the level.
- */
+
 define(['Pickup'], function(Pickup) {
 
-    /**
-     * Goal Constructor
-     * @param {Paper} paper Raphael paper object.
-     */
     var Goal = function(paper) {
         // call parent constructor
         Pickup.call(this, paper);
