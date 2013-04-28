@@ -6,6 +6,7 @@ define([], function() {
         this._paper = paper;
         this._scene = null;
         this.sprite = null;
+        this._requiresTranslation = false;
 
         this._xPosAttr = 'x';
         this._yPosAttr = 'y';
@@ -29,8 +30,15 @@ define([], function() {
 
         var px = x * scene.frameWidth;
         var py = y * scene.frameHeight;
+
+        if (this._requiresTranslation) {
+            sprite.transform('t'+px+','+py);
+            return this;
+        }
+
         this.sprite.attr(this._xPosAttr, px);
         this.sprite.attr(this._yPosAttr, py);
+        return this;
     };
 
     Element.prototype.positionRelative = function(x,y) {
