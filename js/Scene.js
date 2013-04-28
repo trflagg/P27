@@ -11,6 +11,13 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
 
         this._buttonDown = false;
 
+        // load sounds
+        this.pickupSound = new buzz.sound( "sound/pickup", {
+            formats: [ "ogg", "mp3" ],
+            preload: true
+        });
+        this.pickupSound.setVolume(100);
+
         this.windowSize(windowWidth, windowHeight);
         var paper = Raphael("frame", this.frameWidth, this.frameHeight);
         this._paper = paper;
@@ -173,6 +180,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
                 if (Raphael.isBBoxIntersect(bbox,pbbox)) {
                     // collision!
                     if(collider.pickup(p)) {
+                        this.pickupSound.play();
                         removalList.push(collider);
                     }           
                 }

@@ -9,8 +9,8 @@ requirejs.config({
 require(["jquery", 'Scene'], function($, Scene) {
     $(function() {
 
-        var scene = new Scene($(window).width(), $(window).height());
 
+        //event listeners
         $(document).on('mousedown keydown', function(event) {scene.buttonDown.call(scene,event); return false;});
         $(document).on('mouseup keyup', function(event) {scene.buttonUp.call(scene,event)});
 
@@ -20,6 +20,9 @@ require(["jquery", 'Scene'], function($, Scene) {
             posy = e.pageY - $(document).scrollTop() - $('#frame').offset().top;
             console.log('('+posx+','+posy+')');
         });
+
+        //create scene
+        var scene = new Scene($(window).width(), $(window).height());
 
         window.setInterval(function() {
             scene.update();
