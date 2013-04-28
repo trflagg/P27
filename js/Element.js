@@ -63,8 +63,15 @@ define([], function() {
 
         var px = scene.relativeSize(x);
         var py = scene.relativeSize(y);
+
+        if (this._requiresTranslation) {
+            sprite.transform('T'+px+','+py);
+            return this;
+        }
+
         this.sprite.attr(this._xPosAttr, px);
         this.sprite.attr(this._yPosAttr, py);
+        return this;
     };
 
     return Element;

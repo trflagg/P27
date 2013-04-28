@@ -36,12 +36,12 @@ define(function() {
                 ]
             },
             {
-                type: 'sizeMod',
+                type: 'goal',
                 positionRelative: {
-                    x: 600,
-                    y: 516,
+                    x: 1000,
+                    y: 510,
                 },
-                modSize: 20,
+                size: 5,
                 onPickup: function(scene) {
                     scene.P().sprite.animate({'fill': '#fff'}, 500);
                     scene.background.animate({'fill': '#000'}, 500);

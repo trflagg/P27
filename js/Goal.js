@@ -16,7 +16,7 @@ define(['Pickup'], function(Pickup) {
     Goal.prototype = Object.create(Pickup.prototype);
 
     Goal.prototype.pickup = function(p) {
-        this.scene.goalPickedUp();
+        this._scene.goalPickedUp();
         return true;
     }
 

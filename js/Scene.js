@@ -87,11 +87,9 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
                     newElement.setModSize(element.modSize);
                     break;
 
-                case 'goalsRemaining':
+                case 'goal':
                     this.goalsRemaining++;
-                    var newElement = new Goal(this._paper)
-                    if (element.size) 
-                        newElement.size(element.size);
+                    var newElement = new Goal(this._paper);
                     break;
             }
 
@@ -107,6 +105,11 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels'],function(P, Text, Goal, SizeMo
                 // positionRelative
                 if (element.positionRelative) {
                     newElement.positionRelative(element.positionRelative.x, element.positionRelative.y);
+                }
+
+                // set size
+                if (element.size) {
+                    newElement.size(this.relativeSize(element.size));
                 }
 
                 // loop through attrs
