@@ -1,5 +1,18 @@
 
-define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, Goal, SizeMod, Levels, CCW90Mod) {
+define(['P', 
+        'Text', 
+        'Goal', 
+        'SizeMod', 
+        'Levels', 
+        'CCW90Mod',
+        'CW90Mod'
+        ],function(P, 
+                Text, 
+                Goal, 
+                SizeMod, 
+                Levels, 
+                CCW90Mod,
+                CW90Mod) {
 
     var Scene = function(windowWidth, windowHeight) {
         this.windowWidth = null;
@@ -52,7 +65,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
         /**
          * DEBUG ABILITY!!!!
          */
-        this.currentLevel = 3;
+        this.currentLevel = 4;
         
         this.loadLevel(Levels[this.currentLevel]);
 
@@ -152,6 +165,10 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
 
                 case 'ccw90Mod':
                     var newElement = new CCW90Mod(this, this._paper, element.buttonType);
+                    break;
+
+                case 'cw90Mod':
+                    var newElement = new CW90Mod(this, this._paper, element.buttonType);
                     break;
 
                 case 'goal':

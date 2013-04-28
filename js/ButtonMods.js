@@ -4,4 +4,5 @@ define({
     
     NONE: '',
     CCW90: 'CCW90',
+    CW90: 'CW90',
 });

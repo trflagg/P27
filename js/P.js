@@ -36,6 +36,14 @@ define(['Element', 'Mover', 'ButtonMods'], function(Element, Mover, ButtonMods) 
         }
     };
 
+    P.prototype.bindButton = function(buttonType, modName) {
+        if (buttonType == ButtonMods.BUTTON_DOWN) {
+            this.bindButtonDown(modName);
+        }
+        else if (buttonType == ButtonMods.BUTTON_UP) {
+            this.bindButtonUp(modName);
+        }
+    }
     P.prototype.bindButtonDown = function(modName) {
         this._buttonDown = modName;
     };
@@ -54,6 +62,10 @@ define(['Element', 'Mover', 'ButtonMods'], function(Element, Mover, ButtonMods) 
         switch (buttonMod) {
             case ButtonMods.CCW90:
                 this.turn90CCW();
+                break;
+
+            case ButtonMods.CW90:
+                this.turn90CW();
                 break;
         }
     }

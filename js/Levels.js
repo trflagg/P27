@@ -217,8 +217,34 @@ define(['ButtonMods'], function(ButtonMods) {
                 }
             ],
             buttonDown: ButtonMods.CCW90,
-
         },
+        elements: [
+            {
+                type: 'cw90Mod',
+                positionRelative: {
+                    x: 115,
+                    y: 600
+                },
+                buttonType: ButtonMods.BUTTON_UP,
+
+            },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 615,
+                    y: 503,
+                },
+                size: 4,
+            },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 980,
+                    y: 100,
+                },
+                size: 4,
+            },
+        ]
     }
     ]
 });
