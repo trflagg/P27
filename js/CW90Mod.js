@@ -14,7 +14,7 @@ define(['Mod', 'ButtonMods'], function(Mod, ButtonMods) {
     CW90Mod.prototype = Object.create(Mod.prototype);
 
     CW90Mod.prototype.pickup = function(p) {
-        p.bindButton(this.buttonType, ButtonMods.CCW90);
+        p.bindButton(this.buttonType, ButtonMods.CW90);
         return true;
     }
 

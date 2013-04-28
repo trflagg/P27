@@ -218,9 +218,12 @@ define(['ButtonMods'], function(ButtonMods) {
             ],
             buttonDown: ButtonMods.CCW90,
         },
+        sound: {
+            sound: 'bassMovement',
+        },
         elements: [
             {
-                type: 'cw90Mod',
+                type: 'ccw90Mod',
                 positionRelative: {
                     x: 115,
                     y: 600
@@ -244,6 +247,37 @@ define(['ButtonMods'], function(ButtonMods) {
                 },
                 size: 4,
             },
+        ]
+    },
+
+    /**
+     * Level 5
+     */
+    {
+        p: {
+            positionRelative: {
+                x: 0,
+                y: 100,
+            },
+            angle: 0,
+            attrs: [
+                {
+                    attr: 'r',
+                    value: 5,
+                    relative: true,
+                }
+            ],
+            buttonDown: ButtonMods.CCW90,
+            buttonUp: ButtonMods.CCW90,
+        },
+        sound: {
+            sound: 'bass',
+        },
+        elements: [
+            {
+                type: 'randomGoals',
+                count: 5
+            }
         ]
     }
     ]

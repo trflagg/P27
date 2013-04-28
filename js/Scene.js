@@ -175,6 +175,20 @@ define(['P',
                     this.goalsRemaining++;
                     var newElement = new Goal(this._paper);
                     break;
+
+                case 'randomGoals':
+                    for (var j=0; j<5; j++) 
+                    {
+                        var g = new Goal(this._paper);
+                        this.add(g, true);
+                        var rx = 0, ry = 0;
+                        while( ((rx < 0.2) || (rx > 0.8)) && ((ry < 0.2) || (ry > 0.8))) {
+                            rx = Math.random();
+                            ry = Math.random();
+                        }
+                        g.positionPercent(rx,ry);
+                        g.size(this.relativeSize(Math.floor(Math.random()*8)+3));
+                    }
             }
 
             if (newElement) {
