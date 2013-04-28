@@ -24,6 +24,20 @@ define([], function() {
         return this._scene.frameHeight * y;
     };
 
+    Element.prototype.x = function() {
+        if (this.sprite) {
+            return this.sprite.attr(this._xPosAttr);
+        }
+        return null;
+    }
+
+    Element.prototype.y = function() {
+        if (this.sprite) {
+            return this.sprite.attr(this._yPosAttr);
+        }
+        return null;
+    }
+
     Element.prototype.positionPercent = function(x, y) {
         var sprite = this.sprite,
             scene = this._scene;

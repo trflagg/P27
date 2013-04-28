@@ -13,6 +13,7 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
 
         this._P = null;
         this._elements = [];
+        this._collidables = [];
 
         this._buttonDown = false;
 
@@ -38,7 +39,7 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
         t.positionPercent(.13, .7);
 
         var g = new Goal(paper);
-        this.add(g);
+        this.add(g, true);
         g.positionPercent(.5, .5);
     };
 
@@ -46,7 +47,34 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
         if (this._P) {
             this._P.update();
         }
-    }
+
+        // collision check
+        var collidables = this._collidables;  
+        var removalList = [];     
+
+        var x = this._P.x();
+        var y = this._P.y();
+
+        for(var i=0, ll=collidables.length; i<ll; i++) {
+            var collider = collidables[i];
+
+            var bbox = collider.sprite.getBBox();
+            if (Raphael.isPointInsideBBox(bbox,x,y)) {
+                // collision!
+                if(collider.pickup(this._P)) {
+                    removalList.push(collider);
+                }           
+            }
+        }
+
+        // remove removalList
+        for(var i=0, ll=removalList.length; i<ll; i++) {
+            var item = removalList[i];
+            collidables.splice(collidables.indexOf(item), 1);
+            this._elements.splice(this._elements.indexOf(item), 1);
+            item.sprite.remove();
+        }
+    };
 
     Scene.prototype.P = function(p) {
         if (p) {
@@ -55,12 +83,19 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
         }
 
         return this._P;
-    }
+    };
 
-    Scene.prototype.add = function(element) {
+    Scene.prototype.add = function(element, isCollidable) {
+        // isCollidable = false by default
+        isCollidable = typeof isCollidable !== 'undefined' ? isCollidable : false;
+
         this._elements.push(element);
         element.setScene(this);
-    }
+
+        if (isCollidable) {
+            this._collidables.push(element);
+        }
+    };
 
     Scene.prototype.buttonDown = function(event) {
         console.log("Button Down.");
@@ -71,7 +106,7 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
                 this.P().moveRight();
             }
             else {
-                this.P().turn45CCW();
+                this.P().turn90CCW();
             }
         }
     }
@@ -80,7 +115,7 @@ define(['P', 'Text', 'Goal'],function(P, Text, Goal) {
         console.log("Button Up.");  
         this._buttonDown = false;              
         this._buttonRect.attr({'stroke-width': '0'});
-        this.P().turn90CW();
+        this.P().turn90CCW();
 
     }
 

@@ -16,7 +16,7 @@ define(['Element'], function(Element) {
     Pickup.prototype = Object.create(Element.prototype);
 
     Pickup.prototype.pickup = function() {
-        return this;
+        return false;
     }
 
     return Pickup;
