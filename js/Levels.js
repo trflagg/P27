@@ -18,7 +18,6 @@ define(['ButtonMods'], function(ButtonMods) {
                 }
             ]
         },
-
         elements: [
             {
                 type: 'text',
@@ -67,6 +66,9 @@ define(['ButtonMods'], function(ButtonMods) {
                     relative: true,
                 }
             ]
+        },
+        sound: {
+            sound: 'bass',
         },
         elements: [
             {
@@ -118,6 +120,9 @@ define(['ButtonMods'], function(ButtonMods) {
                 }
             ]
         },
+        sound: {
+            sound: 'bass',
+        },
         elements: [
             {
                 type: 'ccw90Mod',
@@ -160,6 +165,9 @@ define(['ButtonMods'], function(ButtonMods) {
                     relative: true,
                 }
             ]
+        },
+        sound: {
+            sound: 'bassMovement',
         },
         elements: [
             {

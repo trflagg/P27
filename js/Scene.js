@@ -12,11 +12,24 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
         this._buttonDown = false;
 
         // load sounds
-        this.pickupSound = new buzz.sound( "sound/pickup", {
+        this.sounds = [];
+        this.sounds['pickup'] = new buzz.sound( "sound/pickup", {
             formats: [ "ogg", "mp3" ],
             preload: true
         });
-        this.pickupSound.setVolume(100);
+        this.sounds['pickup'].setVolume(80);
+        this.sounds['bass'] = new buzz.sound( "sound/bass", {
+            formats: [ "ogg", "mp3" ],
+            preload: true
+        }).setVolume(100);
+        this.sounds['bassMovement'] = new buzz.sound( "sound/bassMovement", {
+            formats: [ "ogg", "mp3" ],
+            preload: true
+        }).setVolume(100);
+        this.newSound = null;
+        this.currentSound = null;
+        this.soundCount = 0;
+        this.soundChanged = false;
 
         this.windowSize(windowWidth, windowHeight);
         var paper = Raphael("frame", this.frameWidth, this.frameHeight);
@@ -35,7 +48,6 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
 
         // load first level
         this.currentLevel = 0;
-
 
         // debug ability!
         // this.currentLevel = 2;
@@ -90,12 +102,29 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
                 attrObject[attribute.attr] = value;
                 this._P.sprite.attr(attrObject);
            }
-       }
+        }
 
-       var x = this._P.x();
-       var y = this._P.y();
+        var x = this._P.x();
+        var y = this._P.y();
 
+        // load sound
+        if (level.sound) {
+            if (this.sounds[level.sound.sound]) {
+                var playSound = false;
 
+                this.newSound = this.sounds[level.sound.sound];
+                this.soundChanged = true;
+
+                if (!this.currentSound) {
+                    this.currentSound = this.newSound;
+                    this.currentSound.play();
+                    this.soundChanged = false;
+                    var scene = this;
+                    this.currentSound.bind("ended", function() {scene.soundEnded();});
+                }
+            }
+        }
+ 
         // position elemenst
         for(var i=0, ll = level.elements.length; i<ll; i++) {
             var element = elements[i];
@@ -180,7 +209,7 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
                 if (Raphael.isBBoxIntersect(bbox,pbbox)) {
                     // collision!
                     if(collider.pickup(p)) {
-                        this.pickupSound.play();
+                        this.sounds['pickup'].play();
                         removalList.push(collider);
                     }           
                 }
@@ -335,6 +364,29 @@ define(['P', 'Text', 'Goal', 'SizeMod', 'Levels', 'CCW90Mod'],function(P, Text, 
 
     Scene.prototype.relativeSize = function(num) {
         return Math.max(num * this._relativeFactor, 1);
+    }
+
+    Scene.prototype.soundEnded = function() {
+        if (this.playing) {
+            this.soundCount++;
+            if (this.soundCount % 2 == 0) {
+                if (this.soundChanged) {
+                    this.currentSound.stop();
+                    this.newSound.play();
+                    this.currentSound = this.newSound;
+                    var scene = this;
+                    this.currentSound.bind("ended", function() {scene.soundEnded();});
+                    this.soundChanged = false;
+                }
+                else {
+                    this.currentSound.play();
+                }
+            }
+            else {
+                this.currentSound.play();
+            }
+        }
+
     }
 
     return Scene;
