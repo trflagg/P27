@@ -271,7 +271,7 @@ define(['ButtonMods'], function(ButtonMods) {
             buttonUp: ButtonMods.CCW90,
         },
         sound: {
-            sound: 'bass',
+            sound: 'bassMovement',
         },
         elements: [
             {
@@ -361,6 +361,103 @@ define(['ButtonMods'], function(ButtonMods) {
                     y: 599,
                 },
                 size: 6,
+            },
+        ]
+    },
+    /**
+     * Level 7
+     */
+    {
+        p: {
+            positionRelative: {
+                x: 0,
+                y: 60,
+            },
+            angle: 0,
+            attrs: [
+                {
+                    attr: 'r',
+                    value: 5,
+                    relative: true,
+                }
+            ],
+            buttonDown: ButtonMods.CCW90,
+            buttonUp: ButtonMods.CCW90,
+        },
+        sound: {
+            sound: 'bellArp',
+        },
+        elements: [
+            {
+                type: 'cw90Mod',
+                positionRelative: {
+                    x: 115,
+                    y: 60
+                },
+                buttonType: ButtonMods.BUTTON_UP,
+
+            },
+            {
+                type: 'sizeMod',
+                positionRelative: {
+                    x: 150,
+                    y: 60
+                },
+                modSize: 120,
+                buttonType: ButtonMods.BUTTON_UP,
+
+            },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 210,
+                    y: 460,
+                },
+                size: 4,
+            },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 310,
+                    y: 556,
+                },
+                size: 3,
+            },
+            {
+                type: 'cw90Mod',
+                positionRelative: {
+                    x: 169,
+                    y: 578
+                },
+                buttonType: ButtonMods.BUTTON_UP,
+
+            },
+            {
+                type: 'cw90Mod',
+                positionRelative: {
+                    x: 169,
+                    y: 578
+                },
+                buttonType: ButtonMods.BUTTON_DOWN,
+
+            },
+            {
+                type: 'cw90Mod',
+                positionRelative: {
+                    x: 175,
+                    y: 481
+                },
+                buttonType: ButtonMods.BUTTON_UP,
+
+            },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 909,
+                    y: 606
+                },
+                size: 7,
+
             },
         ]
     },

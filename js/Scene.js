@@ -39,7 +39,7 @@ define(['P',
             formats: [ "ogg", "mp3" ],
             preload: true
         }).setVolume(100);
-        this.sounds['bellArp'] = new buzz.sound( "sound/BellArp", {
+        this.sounds['bellArp'] = new buzz.sound( "sound/bellArp2", {
             formats: [ "ogg", "mp3" ],
             preload: true
         }).setVolume(100);
@@ -73,7 +73,7 @@ define(['P',
         /**
          * DEBUG ABILITY!!!!
          */
-        // this.currentLevel = 7;
+        this.currentLevel = 7;
         
         this.loadLevel(Levels[this.currentLevel]);
 
@@ -426,7 +426,7 @@ define(['P',
     Scene.prototype.soundEnded = function() {
         if (this.playing) {
             this.soundCount++;
-            if (this.soundCount % 2 == 0) {
+            if (true) {
                 if (this.soundChanged) {
                     this.currentSound.stop();
                     this.newSound.play();
