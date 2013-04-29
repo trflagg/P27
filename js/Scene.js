@@ -73,7 +73,7 @@ define(['P',
         /**
          * DEBUG ABILITY!!!!
          */
-        this.currentLevel = 7;
+        // this.currentLevel = 7;
         
         this.loadLevel(Levels[this.currentLevel]);
 
