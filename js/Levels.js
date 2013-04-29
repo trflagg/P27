@@ -346,6 +346,22 @@ define(['ButtonMods'], function(ButtonMods) {
                 },
                 size: 4,
             },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 1033,
+                    y: 612,
+                },
+                size: 2,
+            },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 836,
+                    y: 599,
+                },
+                size: 6,
+            },
         ]
     },
     ]

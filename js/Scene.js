@@ -39,6 +39,14 @@ define(['P',
             formats: [ "ogg", "mp3" ],
             preload: true
         }).setVolume(100);
+        this.sounds['bellArp'] = new buzz.sound( "sound/BellArp", {
+            formats: [ "ogg", "mp3" ],
+            preload: true
+        }).setVolume(100);
+        this.sounds['fullArp'] = new buzz.sound( "sound/FullArp", {
+            formats: [ "ogg", "mp3" ],
+            preload: true
+        }).setVolume(100);
         this.newSound = null;
         this.currentSound = null;
         this.soundCount = 0;
@@ -65,7 +73,7 @@ define(['P',
         /**
          * DEBUG ABILITY!!!!
          */
-        // this.currentLevel = 6;
+        this.currentLevel = 6;
         
         this.loadLevel(Levels[this.currentLevel]);
 
@@ -351,9 +359,10 @@ define(['P',
             this._buttonRect.attr({'stroke-width': '20'});
             console.log("Button Down.");
             
-            if (!this._buttonDown) {
-                this._buttonDown = true;
+            if (this._buttonDown) {
+                return;
             }
+            this._buttonDown = true;
 
             if (this.playing) {
                 this._P.buttonDown();
