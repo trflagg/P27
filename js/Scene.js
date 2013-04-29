@@ -204,6 +204,7 @@ define(['P',
                         }
                         g.positionPercent(rx,ry);
                         g.size(this.relativeSize(Math.floor(Math.random()*8)+3));
+                        this.goalsRemaining++;
                     }
             }
 
