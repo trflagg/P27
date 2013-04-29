@@ -459,6 +459,15 @@ define(['ButtonMods'], function(ButtonMods) {
                 size: 7,
 
             },
+            {
+                type: 'goal',
+                positionRelative: {
+                    x: 1007,
+                    y: 101
+                },
+                size: 5,
+
+            },
         ]
     },
     /**
@@ -483,6 +492,7 @@ define(['ButtonMods'], function(ButtonMods) {
         },
         sound: {
             sound: 'bass',
+            endBellArp: true,
         },
         elements:
         [

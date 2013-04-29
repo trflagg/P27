@@ -25,6 +25,7 @@ define(['P',
         this._buttonDown = false;
 
         // load sounds
+        this.isArp = false;
         this.sounds = [];
         this.sounds['pickup'] = new buzz.sound( "sound/pickup", {
             formats: [ "ogg", "mp3" ],
@@ -39,7 +40,7 @@ define(['P',
             formats: [ "ogg", "mp3" ],
             preload: true
         }).setVolume(100);
-        this.sounds['bellArp'] = new buzz.sound( "sound/bellArp2", {
+        this.sounds['bellArp'] = new buzz.sound( "sound/bellArp3", {
             formats: [ "ogg", "mp3" ],
             preload: true
         }).setVolume(100);
@@ -73,7 +74,7 @@ define(['P',
         /**
          * DEBUG ABILITY!!!!
          */
-        // this.currentLevel = 7;
+        this.currentLevel = 7;
         
         this.loadLevel(Levels[this.currentLevel]);
 
@@ -143,6 +144,9 @@ define(['P',
         if (level.sound) {
             if (this.sounds[level.sound.sound]) {
                 var playSound = false;
+                if (level.sound.endBellArp) {
+                    this.currentSound.unloop();
+                }
 
                 this.newSound = this.sounds[level.sound.sound];
                 this.soundChanged = true;
@@ -154,6 +158,9 @@ define(['P',
                     var scene = this;
                     this.currentSound.bind("ended", function() {scene.soundEnded();});
                 }
+            }
+            if (level.sound.sound == 'bellArp') {
+                this.bellArp = true;
             }
         }
  
@@ -426,10 +433,13 @@ define(['P',
     Scene.prototype.soundEnded = function() {
         if (this.playing) {
             this.soundCount++;
-            if (true) {
+            if (this.soundCount % 2 == 0) {
                 if (this.soundChanged) {
                     this.currentSound.stop();
                     this.newSound.play();
+                    if (this.isArp) {
+                        this.newSound.loop();
+                    }
                     this.currentSound = this.newSound;
                     var scene = this;
                     this.currentSound.bind("ended", function() {scene.soundEnded();});
