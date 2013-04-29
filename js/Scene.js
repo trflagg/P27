@@ -73,7 +73,7 @@ define(['P',
         /**
          * DEBUG ABILITY!!!!
          */
-        this.currentLevel = 6;
+        // this.currentLevel = 7;
         
         this.loadLevel(Levels[this.currentLevel]);
 
@@ -315,7 +315,7 @@ define(['P',
     };
 
     Scene.prototype.endGame = function() {
-        alert('Thanks for playing!');
+        // alert('Thanks for playing!');
         this.playing = false;
     };
 

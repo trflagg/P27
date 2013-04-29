@@ -364,5 +364,92 @@ define(['ButtonMods'], function(ButtonMods) {
             },
         ]
     },
+    /**
+     * Thanks for playing!
+     */
+    {
+        p: {
+            positionRelative: {
+                x: 0,
+                y: 516,
+            },
+            angle: 0,
+            attrs: [
+                {
+                    attr: 'r',
+                    value: 1,
+                    relative: true,
+                }
+            ],
+            buttonDown: ButtonMods.NONE,
+            buttonUp: ButtonMods.NONE,
+        },
+        sound: {
+            sound: 'bass',
+        },
+        elements:
+        [
+            {
+                type: 'text',
+                positionRelative: {
+                    x: 200,
+                    y: 480,
+                },
+                text: 'P27',
+                attrs: [
+                    {
+                        attr: 'font-size',
+                        value: 72,
+                        relative: true,
+                    }
+                ]
+            },
+            {
+                type: 'text',
+                positionRelative: {
+                    x: 312,
+                    y: 530,
+                },
+                text: 'by hi-scor.es',
+                attrs: [
+                    {
+                        attr: 'font-size',
+                        value: 25,
+                        relative: true,
+                    }
+                ]
+            },
+            {
+                type: 'text',
+                positionRelative: {
+                    x: 927,
+                    y: 500,
+                },
+                text: 'Thanks',
+                attrs: [
+                    {
+                        attr: 'font-size',
+                        value: 30,
+                        relative: true,
+                    }
+                ]
+            },
+            {
+                type: 'text',
+                positionRelative: {
+                    x: 960,
+                    y: 531,
+                },
+                text: 'for playing!',
+                attrs: [
+                    {
+                        attr: 'font-size',
+                        value: 30,
+                        relative: true,
+                    }
+                ]
+            },
+        ]
+    }
     ]
 });
