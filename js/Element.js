@@ -15,6 +15,15 @@ define([], function() {
 
         this.id = null;
         this.$el = null;
+
+        this.animated = false;
+        this.delay = null;
+        this.duration = null;
+        this.timingFunction = null;
+        this.animatingProperty = null,
+        this.animatedValue = null,
+        this.nextAnimationFrame = null,
+        this.animationTimer = null,
     };
 
     Element.prototype.setScene = function(scene) {
@@ -109,69 +118,69 @@ define([], function() {
         if (turnOn) {
             this.removeClass("FnE_AnimateNone");
             this.addClass("FnE_AnimateAll");
-            this._animated = true;
+            this.animated = true;
         }
         else {
             this.removeClass("FnE_AnimateAll");
             this.addClass("FnE_AnimateNone");
-            this._animated = false;
+            this.animated = false;
         }
         return this;
     };
     animationDelay : function(delayInMiliseconds) {
         if (delayInMiliseconds === undefined) {
-            return this._delay;
+            return this.delay;
         }
-        this._delay = delayInMiliseconds;
-        this._jquery.css("-webkit-transition-delay", delayInMiliseconds+"ms");
-        this._jquery.css("-moz-transition-delay", delayInMiliseconds+"ms");
-        this._jquery.css("-o-transition-delay", delayInMiliseconds+"ms");
-        this._jquery.css("-ms-transition-delay", delayInMiliseconds+"ms");
-        this._jquery.css("transition-delay", delayInMiliseconds+"ms");
+        this.delay = delayInMiliseconds;
+        this.$el.css("-webkit-transition-delay", delayInMiliseconds+"ms");
+        this.$el.css("-moz-transition-delay", delayInMiliseconds+"ms");
+        this.$el.css("-o-transition-delay", delayInMiliseconds+"ms");
+        this.$el.css("-ms-transition-delay", delayInMiliseconds+"ms");
+        this.$el.css("transition-delay", delayInMiliseconds+"ms");
         return this;
     };
     animationDuration : function(durationInMiliseconds) {
         if (durationInMiliseconds === undefined) {
-            return this._duration;
+            return this.duration;
         }
-        this._duration = durationInMiliseconds;
-        this._jquery.css("-webkit-transition-duration", durationInMiliseconds+"ms");
-        this._jquery.css("-moz-transition-duration", durationInMiliseconds+"ms");
-        this._jquery.css("-o-transition-duration", durationInMiliseconds+"ms");
-        this._jquery.css("-ms-transition-duration", durationInMiliseconds+"ms");
-        this._jquery.css("transition-duration", durationInMiliseconds+"ms");
+        this.duration = durationInMiliseconds;
+        this.$el.css("-webkit-transition-duration", durationInMiliseconds+"ms");
+        this.$el.css("-moz-transition-duration", durationInMiliseconds+"ms");
+        this.$el.css("-o-transition-duration", durationInMiliseconds+"ms");
+        this.$el.css("-ms-transition-duration", durationInMiliseconds+"ms");
+        this.$el.css("transition-duration", durationInMiliseconds+"ms");
         return this;
     };
     animationTimingFunction : function(timingFunction) {
         if (timingFunction === undefined) {
-            return this._timingFunction;
+            return this.timingFunction;
         }
-        this._timingFunction = timingFunction;
-        this._jquery.css("-webkit-transition-timing-function", timingFunction);
-        this._jquery.css("-moz-transition-timing-function", timingFunction);
-        this._jquery.css("-o-transition-timing-function", timingFunction);
-        this._jquery.css("-ms-transition-timing-function", timingFunction);
-        this._jquery.css("transition-timing-function", timingFunction);
+        this.timingFunction = timingFunction;
+        this.$el.css("-webkit-transition-timing-function", timingFunction);
+        this.$el.css("-moz-transition-timing-function", timingFunction);
+        this.$el.css("-o-transition-timing-function", timingFunction);
+        this.$el.css("-ms-transition-timing-function", timingFunction);
+        this.$el.css("transition-timing-function", timingFunction);
         return this;
     };
     isAnimated : function() {
-        return this._animated;
+        return this.animated;
     };
     animateProperty : function(propertyName, value) {
         this.animate();
-        this._jquery.css("-webkit-transition-property", propertyName);
-        this._jquery.css("-moz-transition-property", propertyName);
-        this._jquery.css("-o-transition-property", propertyName);
-        this._jquery.css("-ms-transition-property", propertyName);
-        this._jquery.css("transition-property", propertyName);
+        this.$el.css("-webkit-transition-property", propertyName);
+        this.$el.css("-moz-transition-property", propertyName);
+        this.$el.css("-o-transition-property", propertyName);
+        this.$el.css("-ms-transition-property", propertyName);
+        this.$el.css("transition-property", propertyName);
         this._animatingProperty = propertyName;
         this._animatedValue = value;
         this.css(propertyName, value);
 
         //set timer so we guarantee animation frames complete
-        if(this._nextAnimationFrame) {
+        if(this.nextAnimationFrame) {
             var thisElement = this;
-            this._animationTimer = window.setTimeout(this._nextAnimationFrame, this._duration + 200);
+            this.animationTimer = window.setTimeout(this.nextAnimationFrame, this.duration + 200);
         }
 
         return this;
