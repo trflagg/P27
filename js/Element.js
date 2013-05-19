@@ -35,7 +35,10 @@ define([], function() {
             return this._id;
         }
         this._id = id;
-        this.el($("#"+id));
+        if (this.sprite) {
+            this.sprite.node.id = id;
+            this.el($("#"+id));        
+        }
     };
     Element.prototype.el = function(jqElement) {
         if (jqElement === undefined) {
@@ -114,15 +117,15 @@ define([], function() {
         }
         this.$el.css(propertyName, value);
         return this;
-    },
+    };
     Element.prototype.hide = function() {
         this.$el.hide();
         return this;
-    },
+    };
     Element.prototype.show = function() {
         this.$el.show();
         return this;
-    },
+    };
 
 
     // animation controls
