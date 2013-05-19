@@ -6,6 +6,8 @@ define(['Mover', 'ButtonMods'], function(Mover, ButtonMods) {
         Mover.call(this, paper);
 
         this.sprite = paper.circle(100,100,1);
+        this.setId("P");
+        
         this.sprite.attr("fill", "#000");
 
         this.xPosAttr = 'cx';
