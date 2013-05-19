@@ -13,18 +13,18 @@ define([], function() {
 
         this.collidable = false;
 
-        this.id = null;
+        this._id = null;
         this.$el = null;
 
         this.animated = false;
         this.delay = null;
         this.duration = null;
         this.timingFunction = null;
-        this.animatingProperty = null,
-        this.animatedValue = null,
-        this.nextAnimationFrame = null,
-        this.animationTimer = null,
-    };
+        this.animatingProperty = null;
+        this.animatedValue = null;
+        this.nextAnimationFrame = null;
+        this.animationTimer = null;
+    }
 
     Element.prototype.setScene = function(scene) {
         this.scene = scene;
@@ -32,28 +32,29 @@ define([], function() {
 
     Element.prototype.id = function(id) {
         if (id === undefined) {
-            return this.id;
+            return this._id;
         }
-        this.id = id;
+        this._id = id;
         this.el($("#"+id));
-    }
+    };
     Element.prototype.el = function(jqElement) {
         if (jqElement === undefined) {
             return this.$el;
         }
         this.$el = jqElement;
-    }
+    };
 
     // class handlers
-    addClass : function(className) {
+    Element.prototype.addClass = function(className) {
         this.$el.addClass(className);
         return this;
-    },
-    removeClass : function(className) {
+    };
+    Element.prototype.removeClass = function(className) {
         this.$el.removeClass(className);
         return this;
-    },
+    };
 
+    // position handlers
     Element.prototype.percentX = function(x) {
         return this.scene.frameWidth * x;
     };
@@ -61,21 +62,18 @@ define([], function() {
     Element.prototype.percentY = function(y) {
         return this.scene.frameHeight * y;
     };
-
     Element.prototype.x = function() {
         if (this.sprite) {
             return this.sprite.attr(this.xPosAttr);
         }
         return null;
-    }
-
+    };
     Element.prototype.y = function() {
         if (this.sprite) {
             return this.sprite.attr(this.yPosAttr);
         }
         return null;
-    }
-
+    };
     Element.prototype.positionPercent = function(x, y) {
         var sprite = this.sprite,
             scene = this.scene;
@@ -92,7 +90,6 @@ define([], function() {
         this.sprite.attr(this.yPosAttr, py);
         return this;
     };
-
     Element.prototype.positionRelative = function(x,y) {
         var sprite = this.sprite,
             scene = this.scene;
@@ -110,8 +107,26 @@ define([], function() {
         return this;
     };
 
+    // modifiers
+    Element.prototype.css = function(propertyName, value) {
+        if (value === undefined) {
+            return this.$el.css(propertyName);
+        }
+        this.$el.css(propertyName, value);
+        return this;
+    },
+    Element.prototype.hide = function() {
+        this.$el.hide();
+        return this;
+    },
+    Element.prototype.show = function() {
+        this.$el.show();
+        return this;
+    },
+
+
     // animation controls
-    animate : function(turnOn) {
+    Element.prototype.animate = function(turnOn) {
         if (turnOn === undefined) {
             turnOn = true;
         }
@@ -127,7 +142,7 @@ define([], function() {
         }
         return this;
     };
-    animationDelay : function(delayInMiliseconds) {
+    Element.prototype.animationDelay = function(delayInMiliseconds) {
         if (delayInMiliseconds === undefined) {
             return this.delay;
         }
@@ -139,7 +154,7 @@ define([], function() {
         this.$el.css("transition-delay", delayInMiliseconds+"ms");
         return this;
     };
-    animationDuration : function(durationInMiliseconds) {
+    Element.prototype.animationDuration = function(durationInMiliseconds) {
         if (durationInMiliseconds === undefined) {
             return this.duration;
         }
@@ -151,7 +166,7 @@ define([], function() {
         this.$el.css("transition-duration", durationInMiliseconds+"ms");
         return this;
     };
-    animationTimingFunction : function(timingFunction) {
+    Element.prototype.animationTimingFunction = function(timingFunction) {
         if (timingFunction === undefined) {
             return this.timingFunction;
         }
@@ -163,18 +178,18 @@ define([], function() {
         this.$el.css("transition-timing-function", timingFunction);
         return this;
     };
-    isAnimated : function() {
+    Element.prototype.isAnimated = function() {
         return this.animated;
     };
-    animateProperty : function(propertyName, value) {
+    Element.prototype.animateProperty = function(propertyName, value) {
         this.animate();
         this.$el.css("-webkit-transition-property", propertyName);
         this.$el.css("-moz-transition-property", propertyName);
         this.$el.css("-o-transition-property", propertyName);
         this.$el.css("-ms-transition-property", propertyName);
         this.$el.css("transition-property", propertyName);
-        this._animatingProperty = propertyName;
-        this._animatedValue = value;
+        this.animatingProperty = propertyName;
+        this.animatedValue = value;
         this.css(propertyName, value);
 
         //set timer so we guarantee animation frames complete

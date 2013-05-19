@@ -6,8 +6,8 @@ define(['Mover', 'ButtonMods'], function(Mover, ButtonMods) {
         Mover.call(this, paper);
 
         this.sprite = paper.circle(100,100,1);
-        this.setId("P");
-        
+        this.id("P");
+
         this.sprite.attr("fill", "#000");
 
         this.xPosAttr = 'cx';
@@ -18,7 +18,6 @@ define(['Mover', 'ButtonMods'], function(Mover, ButtonMods) {
         this._oldButtonDown = ButtonMods.NONE;
         this._oldButtonUp = ButtonMods.NONE;
 
-        this.initializeMover();
     };
     // inherit from parent
     P.prototype = Object.create(Mover.prototype);

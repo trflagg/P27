@@ -68,10 +68,10 @@ define(['Element'], function(Element) {
         // opp = sin() * hyp
         var dy = Math.sin(Raphael.rad(this.angle)) * (this.scene.frameWidth * 2);
 
-        animation[xPos] = this.sprite.attr(xPos) + dx;
-        animation[yPos] = this.sprite.attr(yPos) + dy;
-        // var newX = this.sprite.attr(xPos) + dx;
-        // var newY = this.sprite.attr(yPos) + dy;
+        // animation[xPos] = this.sprite.attr(xPos) + dx;
+        // animation[yPos] = this.sprite.attr(yPos) + dy;
+        var newX = this.sprite.attr(xPos) + dx;
+        var newY = this.sprite.attr(yPos) + dy;
 
         if (this.currentAnimation) {
             this.sprite.stop(this.currentAnimation);
@@ -92,8 +92,10 @@ define(['Element'], function(Element) {
         // this.linePath.attr('fill','rgb(255,255,102)');
         
 
-        this.currentAnimation = Raphael.animation(animation, 20000);
-        this.sprite.animate(this.currentAnimation);
+        // this.currentAnimation = Raphael.animation(animation, 20000);
+        // this.sprite.animate(this.currentAnimation);
+        this.animateProperty(xPos,newX);
+        this.animateProperty(yPos,newY);
     };
 
 

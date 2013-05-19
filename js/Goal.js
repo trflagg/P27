@@ -9,7 +9,7 @@ define(['Pickup'], function(Pickup) {
         this.requiresTranslation = true;
         this.sprite.attr('stroke-width',1);
         this.sprite.attr('fill','rgb(255,255,102)');
-        this.size = 1;
+        this._size = 1;
     }
 
     // inherit from parent
@@ -21,13 +21,13 @@ define(['Pickup'], function(Pickup) {
     }
 
     Goal.prototype.size = function(size) {
-        if (size) {
-            this.sprite.transform('...S'+size);
-            this.size = size;
-            return this;
+        if (size === undefined) {
+            return this._size;
         }
-        
-        return this.size;
+
+        this.sprite.transform('...S'+size);
+        this._size = size;
+        return this;
     }
     return Goal;
 })
