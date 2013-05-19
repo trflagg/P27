@@ -6,7 +6,7 @@ requirejs.config({
     }
 });
 
-require(["jquery", 'Scene'], function($, Scene) {
+require(['Scene'], function(Scene) {
     $(function() {
 
 
