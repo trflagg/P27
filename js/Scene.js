@@ -55,7 +55,7 @@ define(['P',
 
         this.windowSize(windowWidth, windowHeight);
         var paper = Raphael("frame", this.frameWidth, this.frameHeight);
-        this._paper = paper;
+        this.paper = paper;
 
         // background rect
         this.background = paper.rect(0,0,this.frameWidth, this.frameHeight).attr({'fill':'#fff',});
@@ -107,9 +107,9 @@ define(['P',
             this._P.positionRelative(level.p.positionRelative.x, level.p.positionRelative.y);
         }
 
-        this._P._angle = 0;
+        this._P.angle = 0;
         if (level.p.angle) {
-            this._P._angle = level.p.angle;
+            this._P.angle = level.p.angle;
         }
         if (this.playing) {
             this._P.setAnimationByAngle();
@@ -171,31 +171,31 @@ define(['P',
 
             switch(element.type) {
                 case 'text':
-                    var newElement = new Text(element.text, this._paper);
+                    var newElement = new Text(element.text, this.paper);
                     break;
 
                 case 'sizeMod':
-                    var newElement = new SizeMod(this, this._paper);
+                    var newElement = new SizeMod(this, this.paper);
                     newElement.setModSize(this.relativeSize(element.modSize));
                     break;
 
                 case 'ccw90Mod':
-                    var newElement = new CCW90Mod(this, this._paper, element.buttonType);
+                    var newElement = new CCW90Mod(this, this.paper, element.buttonType);
                     break;
 
                 case 'cw90Mod':
-                    var newElement = new CW90Mod(this, this._paper, element.buttonType);
+                    var newElement = new CW90Mod(this, this.paper, element.buttonType);
                     break;
 
                 case 'goal':
                     this.goalsRemaining++;
-                    var newElement = new Goal(this._paper);
+                    var newElement = new Goal(this.paper);
                     break;
 
                 case 'randomGoals':
                     for (var j=0; j<5; j++) 
                     {
-                        var g = new Goal(this._paper);
+                        var g = new Goal(this.paper);
                         this.add(g, true);
                         var rx = 0, ry = 0;
                         while( ((rx < 0.2) || (rx > 0.8)) && ((ry < 0.2) || (ry > 0.8))) {
@@ -380,7 +380,7 @@ define(['P',
                 this.start = false;
                 this.playing = true;
                 this.ignoreButtonUp = true;
-                this._angle = 0;
+                this.angle = 0;
                 this._P.setAnimationByAngle();
             }
         }

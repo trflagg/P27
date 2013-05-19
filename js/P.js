@@ -1,15 +1,15 @@
 
-define(['Element', 'Mover', 'ButtonMods'], function(Element, Mover, ButtonMods) {
+define(['Mover', 'ButtonMods'], function(Mover, ButtonMods) {
 
     var P = function(paper) {
         // call parent constructor
-        Element.call(this, paper);
+        Mover.call(this, paper);
 
         this.sprite = paper.circle(100,100,1);
         this.sprite.attr("fill", "#000");
 
-        this._xPosAttr = 'cx';
-        this._yPosAttr = 'cy';
+        this.xPosAttr = 'cx';
+        this.yPosAttr = 'cy';
 
         this._buttonDown = ButtonMods.NONE;
         this._buttonUp = ButtonMods.NONE;
@@ -19,8 +19,7 @@ define(['Element', 'Mover', 'ButtonMods'], function(Element, Mover, ButtonMods) 
         this.initializeMover();
     };
     // inherit from parent
-    P.prototype = Object.create(Element.prototype);
-    P.prototype = _.extend(Mover, P.prototype);
+    P.prototype = Object.create(Mover.prototype);
 
     P.prototype.resize = function(newSize) {
         this.sprite.animate({r: newSize}, 500);
@@ -31,9 +30,6 @@ define(['Element', 'Mover', 'ButtonMods'], function(Element, Mover, ButtonMods) 
     }
 
     P.prototype.update = function() {
-        if (this._moving) {
-            
-        }
     };
 
     P.prototype.bindButton = function(buttonType, modName) {
@@ -68,28 +64,28 @@ define(['Element', 'Mover', 'ButtonMods'], function(Element, Mover, ButtonMods) 
                 this.turn90CW();
                 break;
         }
-    }
+    };
 
     P.prototype.newLevel = function() {
         this._oldButtonDown = this._buttonDown;
         this._oldButtonUp = this._buttonUp;
-        if (this._linePath) {
-            this._linePath.remove();
-            this._linePath = null;
-            this._linePathString = null;
+        if (this.linePath) {
+            this.linePath.remove();
+            this.linePath = null;
+            this.linePathString = null;
         }
-    }
+    };
 
     P.prototype.levelReset = function() {
         this._buttonUp = this._oldButtonUp;
         this._buttonDown = this._oldButtonDown;
 
-        if (this._linePath) {
-            this._linePath.remove();
-            this._linePath = null;
-            this._linePathString = null;
+        if (this.linePath) {
+            this.linePath.remove();
+            this.linePath = null;
+            this.linePathString = null;
         }
-    }
+    };
 
 
 
