@@ -1,5 +1,9 @@
 requirejs.config({
-    shim: {
+    paths: {
+        'jquery': '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min',
+        'lib/underscore': '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.0/underscore-min'
+    }
+    , shim: {
         'lib/underscore': {
             exports: '_'
         }
